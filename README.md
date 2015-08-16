@@ -1,10 +1,12 @@
-# MatlabRuby
+# MatlabRuby #
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/matlab_ruby`. To experiment with that code, run `bin/console` for an interactive prompt.
+This is a Ruby interface to the [MATLAB Engine API](http://www.mathworks.com/help/matlab/calling-matlab-engine-from-c-c-and-fortran-programs.html)
+and to the [C/C++ Matrix Library API](http://www.mathworks.com/help/matlab/cc-mx-matrix-library.html).
 
-TODO: Delete this and the text above, and describe your gem
+MATLAB needs to be installed and you need to know where the dynamically loaded library files are located. For example, in my installation (Ubuntu 14.04)
+MATLAB dlls are installed here: `/usr/local/MATLAB/R2014a/bin/glnxa64`
 
-## Installation
+## Installation ##
 
 Add this line to your application's Gemfile:
 
@@ -20,19 +22,53 @@ Or install it yourself as:
 
     $ gem install matlab_ruby
 
-## Usage
+## Usage ##
 
-TODO: Write usage instructions here
+Open the file `lib/matlab_ruby.rb` to see which functions of the APIs are interfaced via this gem. Not all functions are ready.
 
-## Development
+### Initialize ###
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+First you need to initialize the interface to the API implementations. 
+Call `.initialize` and give the path to the MATLAB libs directory:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```
+MatlabRuby.initialize('/usr/local/MATLAB/R2014a/bin/glnxa64')
+```
+
+### Start Engine ###
+
+Then you need to start the MATLAB engine. 
+
+```
+matlab_engine = MatlabRuby.startEngine
+```
+
+### Call API Functions ###
+
+And now you are ready to call API functions.
+
+Example:
+```
+MatlabRuby.engEvalString matlab_engine, "x = 5;"
+
+x_var   = MatlabRuby.engGetVariable matlab_engine, "x"
+
+x_value = MatlabRuby.mxGetScalar(x_var)
+
+MatlabRuby.engEvalString(matlab_engine, "clearvars x;")
+
+puts "Value of 'x' is #{x_value}" # this should print out 5.0
+```
+
+## Tests ##
+
+In order to run the tests of this gem, you need to have the MATLAB engine installed and you need to have
+MATLAB_RUBY_LIBS_PATH environment variable set to the correct path to the MATLAB libs. You can do that inside the ".env.test" file
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/matlab_ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/matlab_ruby. This project is intended to be a safe, welcoming space for collaboration, 
+and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 
 ## License
