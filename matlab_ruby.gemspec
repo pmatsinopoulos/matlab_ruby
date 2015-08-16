@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
 This gem allows you to build a MATLAB Engine Application, a.k.a. a Ruby application that embeds a MATLAB Engine. This is all done by interfacing the MATLAB Engine API.
 You can read more about the MATLAB Engine API here: http://www.mathworks.com/help/matlab/calling-matlab-engine-from-c-c-and-fortran-programs.html.
   SHORT_DESCRIPTION
-  spec.homepage      = "https://github.com/pmatsinopoulos"
+  spec.homepage      = "https://github.com/pmatsinopoulos/matlab_ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
