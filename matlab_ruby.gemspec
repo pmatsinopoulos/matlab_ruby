@@ -23,6 +23,7 @@ You can read more about the MATLAB Engine API here: http://www.mathworks.com/hel
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.10"
+  spec.add_development_dependency "dotenv", "2.0.2"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec"
 end
