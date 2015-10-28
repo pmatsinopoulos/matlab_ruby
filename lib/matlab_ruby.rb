@@ -29,8 +29,8 @@ module MatlabRuby
     attach_function :free,   [:pointer], :void
   end
 
-  def self.start_engine
-    engOpen "matlab -nosplash -nodisplay -nojvm"
+  def self.start_engine(matlab_start_arguments = "-nosplash -nodisplay -nojvm")
+    engOpen "matlab #{matlab_start_arguments}"
   end
 
   def self.stop_engine(engine_ref)
