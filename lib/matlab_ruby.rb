@@ -19,6 +19,9 @@ module MatlabRuby
     attach_function :mxGetNumberOfFields,  [:pointer], :int
 
     attach_function :mxGetScalar, [:pointer], :double
+    attach_function :mxGetChars,  [:pointer], :pointer
+    attach_function :mxGetString, [:pointer, :pointer, :int], :int
+    attach_function :mxGetN,      [:pointer], :int
 
     attach_function :mxCreateDoubleMatrix, [:int, :int, :int], :pointer
     attach_function :mxDestroyArray,       [:pointer], :void
